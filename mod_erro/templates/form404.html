@@ -1,0 +1,26 @@
+
+{% extends "modelo.html" %}
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}Erro{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.5.2-dist/css/bootstrap.min.css') }}">
+    {% endblock %} 
+<body>
+    {% block content %}
+        <div class="col-10">
+            <br>
+            <h1>Erro 404 - Página não encontrada!!</h1>
+            <br>            
+        </div>
+    {% endblock %}
+
+    {% block footer %}
+        <footer>
+            <div class="col-8">&copy; Copyright 2020 by <a href="http://127.0.0.1:5000/">Eduardo Ortiz</a>.</div>
+        </footer>    
+    {% endblock %}
+
+    <script src="{{ url_for('static', filename='bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
+</body>
