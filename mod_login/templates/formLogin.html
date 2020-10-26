@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    {% block head %}
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>{% block title %}Login{% endblock %}</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.5.2-dist/css/bootstrap.min.css') }}">
+      <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='coffee.ico') }}"/>
+    {% endblock %}  
+  </head>
+  <body>
+    <!-- Just an image -->
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+        <!-- <img src="" width="30" height="30" alt="" loading="lazy"> -->
+        <h2>Seja Bem Vindo</h2>
+      </a>
+    </nav>
+    {% block content %}
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+              <div class="card-body">
+                <h1 class="card-title text-center" >Pastelaria do Zé</h1>
+                <h5 class="card-title text-center">Login</h5>
+                <form class="form-signin"  action="{{ url_for('login.validaLogin') }}" method="POST">
+                  <div class="form-label-group">
+                    <input type="text" id="inputUser" class="form-control" placeholder="" name="usuario" value="abc" required autofocus>
+                  </div>
+                  <br>
+                  <div class="form-label-group">
+                    <input type="password" id="inputPassword" class="form-control" placeholder=""  name="senha" value="bolinhas" required>
+                  </div>
+                  <br>
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">Remember password</label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+                  <hr class="my-4">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {% if request.args.get('falhaSessao') == '1': %}
+        <div class="row">
+          <div class="col col-12">
+            <div class="alert alert-danger" role="alert">Falha de Sessão! Realize seu login!</div>
+          </div>
+        </div>                
+      {% endif %}
+    {% endblock %}
+
+    {% block footer %}
+      <footer>
+        <div class="col-8">&copy; Copyright 2020 by <a href="http://127.0.0.1:5000/">Eduardo Ortiz</a>.</div>
+      </footer>  
+    {% endblock %}
+    <script src="{{ url_for('static', filename='bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
+  </body>
+</html>

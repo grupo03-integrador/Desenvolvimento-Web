@@ -1,0 +1,79 @@
+{% extends "modelo.html" %}
+  {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Lista de Produtos{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.5.2-dist/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='coffee.ico') }}"/>
+  {% endblock %}
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Pastelaria do zé</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('home.home') }}">Home <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('cliente.formListaClientes') }}">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('produto.formListaProduto') }}">Produtos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('pedido.formListaPedido') }}">Pedidos</a>
+        </li>
+      </ul>
+    </div>
+  </nav> 
+            
+  {% block content %}
+    <div class="col-4">
+      <br>
+      <h1>Histórico de Produtos</h1>
+      <br>
+      <form action="{{ url_for('produto.formProduto') }}" method="POST">
+        <button class="btn btn-danger" type="submit">Novo Produto</button>
+        <br>
+        <br>
+        <hr>
+        <table id="example" class="display" style="width:100%">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Descrição</th>
+              <th>Preço</th>
+              <th>Imagem</th>
+            </tr>
+          </thead>
+        </table>
+        <hr>
+        <table id="example" class="display" style="width:100%">
+          <thead>
+            <tr>
+              <th>1</th>
+              <th>Pastel</th>
+              <th>R$ 4,50</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </form>
+    </div>
+  {% endblock %}
+            
+  {% block footer %}
+    <div class="col-10">
+      <br>
+      <br>
+      &copy; Copyright 2020 by <a href="http://127.0.0.1:5000/">Eduardo Ortiz</a>.
+    </div>
+  {% endblock %}
+
+  <script src="{{ url_for('static', filename='bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
+</body>
+</html>
