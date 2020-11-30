@@ -1,0 +1,109 @@
+{% extends "modelo.html" %}
+
+{% block title %}Finalização de Comandas{% endblock title %}
+
+{% block content %}
+<div class="col-10">
+  <br>
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="id_comanda">Nº Comanda:</label>
+      <input value="" class="form-control" type="numero" name="numeroComanda" id="numeroComanda">
+    </div>
+    <div class="form-group col-md-9">
+      <label for="cliente">Cliente:</label>
+      <input readonly value="" class="form-control" type="text" name="cliente" id="cliente">
+    </div>
+  </div>
+  <form action="" method="POST">
+    <button type='submit' class="btn btn-primary" name='' id=''>Buscar</button>
+  </form>
+</div>
+
+<br><hr><br>
+
+<div class="col-10">
+  <h4>Produtos da Comanda:</h4>
+  <br>
+  <table class="table table-md table-houver">
+    <thead class="thead-light" >
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Quantidade</th>
+        <th>Valor</th>
+        <th>Funcionário</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if result %}
+    {% for row in result %}
+      <tr>
+        <th scope='row'> {{ row[0] }}</th>
+        <td> {{ row[1] }}</td>
+        <td> {{ row[2] }}</td>
+        <td> {{ row[3] }}</td>
+        <td> {{ row[4] }}</td>
+        <td>
+          <form action="" method='POST' name='editUsuario'>
+            <input type='hidden' name='id_cliente' value=''>
+            <button type='submit' class="btn btn-primary" name='formEditCliente'><i class='fas fa-edit'></i></button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+<br><hr><br>
+
+<div class="col-10">
+
+  <form>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Valor R$:</label>
+      <div class="col-md-4">
+        <input type="password" class="form-control" id="inputPassword">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Valor do Desconto R$:</label>
+      <div class="col-md-4">
+        <input type="password" class="form-control" id="inputPassword">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Valor a Pagar R$:</label>
+      <div class="col-md-4">
+        <input type="password" class="form-control" id="inputPassword">
+      </div>
+    </div>
+  </form>
+  </div>
+  <br><hr><br>
+  <div class="col-10">
+    <h4>Método de Pagamento:</h4>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <form action="" method="POST">
+          <button type='submit' class="btn btn-danger" name='' id=''>Fiado</button>
+        </form>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <form action="" method="POST">
+          <button type='submit' class="btn btn-success" name='' id=''>À vista</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+            
+{% block footer %}{% endblock %}
+
+  

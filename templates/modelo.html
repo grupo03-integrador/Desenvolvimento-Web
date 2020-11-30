@@ -1,45 +1,137 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    {% block style %}
+      <style>
+        .obrigatorio {
+          color: red;
+        }
+
+      </style>
+    {% endblock %}
+    
     {% block head %}
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>{% block title %}Home{% endblock %}</title>
+      <title>{% block title %}Modelo{% endblock %}</title>
       <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.5.2-dist/css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free-5.14.0-web/css/all.min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='sweetalert/sweetalert.css') }}">
       <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='coffee.ico') }}"/>
     {% endblock %}
   </head>  
   <body>
-     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-       <a class="navbar-brand" href="#">Pastelaria do zé</a>
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-       </button>
-       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-         <ul class="navbar-nav">
+     <nav  class="navbar navbar-expand-lg navbar-dark bg-dark">
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav mr-auto">
            <li class="nav-item">
-             <a class="nav-link" href="{{ url_for('home.home') }}">Home <span class="sr-only"></span></a>
+             <a class="nav-link text-white" href="{{ url_for('home.home') }}"><i class="fas fa-home"></i> HOME<span class="sr-only"></span></a>
            </li>
            <li class="nav-item">
-             <a class="nav-link" href="{{ url_for('cliente.formListaClientes') }}">Clientes</a>
+             <a class="nav-link text-white" href="{{ url_for('funcionario.formListaFuncionarios') }}"><i class="fas fa-users"></i> FUNCIONÁRIOS</a>
            </li>
-             <li class="nav-item">
-               <a class="nav-link" href="{{ url_for('produto.formListaProduto') }}">Produtos</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="{{ url_for('pedido.formListaPedido') }}">Pedidos</a>
-             </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{{ url_for('produto.formListaProduto') }}"><i class="fas fa-store-alt"></i> PRODUTOS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{{ url_for('cliente.formListaClientes') }}"><i class="fas fa-user-friends"></i> CLIENTES</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-shopping-cart"></i>  COMANDAS
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url_for('comanda.formListaComandas') }}"><i class="fas fa-list-ul"></i> LISTA</a>
+                <a class="dropdown-item" href="{{ url_for('comanda.formAbrirComanda') }}"> <i class="fas fa-external-link-square-alt"></i> ABRIR COMANDA</a>
+                <a class="dropdown-item" href="{{ url_for('comanda.formFinalizarComanda') }}"> <i class="fas fa-clipboard-check"></i> FINALIZAR COMANDA</a>
+                <a class="dropdown-item" href="{{ url_for('comanda.formPagamento') }}"><i class="fas fa-comment-dollar"></i> PAGAMENTO</a>
+                
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{{ url_for('configuracao.formConfiguracao') }}"><i class="fas fa-cog"></i> CONFIGURAÇÕES</a>
+            </li>
+            <li class="nav-item">
+              {% if 'usuario' in session %}
+              <b class=" nav-link disabled font-weight-bold text-silver ">Usuário: {{ session['usuario'] }}</b>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              <b class="nav-link disabled font-weight-bold text-silver ">Grupo: {{ session['usuario'] }}</b>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#" aria-disabled="true">SAIR <i class="fas fa-sign-out-alt"></i></a>
+            </li>
+            
+            <!--Cronometro-->
+            <li class="nav-item">
+              <a class="nav-link disabled font-weight-bold text-silver" >Sessão: <span class="font-weight-bold text-silver" id="sessao"></span></a>
+            </li>
          </ul>
        </div>
      </nav> 
     {% block content %}{% endblock %}
 
-    {% block footer %}
-      <footer>
-        <div class="col-10">&copy; Copyright 2020 by <a href="http://127.0.0.1:5000/">Eduardo Ortiz</a>.</div>
-      </footer>    
-    {% endblock %}
-    <script src="{{ url_for('static', filename='bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
+    {% block footer %}{% endblock %}
+    
+    
+    
   </body>
+  <!-- monitorar log do navegador, pois a ordem interfere -->
+  <script src="{{ url_for('static', filename='jquery-3.5.1.js') }}"></script>
+  <script src="{{ url_for('static', filename='jquery.maskedinput.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='fontawesome-free-5.14.0-web/js/all.js') }}"></script>
+  <script src="{{ url_for('static', filename='sweetalert/sweetalert.js') }}"></script>
+  
+  {% block js %}
+  <script>
+    //Tempo de Sessão
+    var tempo = new Number();
+  // Tempo em segundos
+  tempo = 900;
+
+  function startCountdown(){
+
+    // Se o tempo não for zerado
+    if((tempo - 1) >= 0){
+
+      // Pega a parte inteira dos minutos
+      var min = parseInt(tempo/60);
+      // Calcula os segundos restantes
+      var seg = tempo%60;
+
+      // Formata o número menor que dez, ex: 08, 07, ...
+      if(min < 10){
+        min = "0"+min;
+        min = min.substr(0, 2);
+      }
+      if(seg <=9){
+        seg = "0"+seg;
+      }
+
+      // Cria a variável para formatar no estilo hora/cronômetro
+      horaImprimivel = '00:' + min + ':' + seg;
+      //JQuery pra setar o valor
+      $("#sessao").html(horaImprimivel);
+
+      // Define que a função será executada novamente em 1000ms = 1 segundo
+      setTimeout('startCountdown()',1000);
+
+      // diminui o tempo
+      tempo--;
+
+      // Quando o contador chegar a zero faz esta ação
+    } else {
+      window.open('http://127.0.0.1:5000/', '_self');
+    }
+
+  }
+
+  // Chama a função ao carregar a tela
+  startCountdown();
+    
+  </script>  
+  {% endblock %}
 </html>

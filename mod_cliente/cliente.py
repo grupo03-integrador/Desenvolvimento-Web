@@ -1,30 +1,26 @@
 #coding: utf-8
 from flask import Blueprint, render_template, request, redirect
-from mod_cliente.clienteBD import Clientes
+from mod_cliente.clienteDB import Clientes
 from mod_login.login import validaSessao
 
 bp_cliente = Blueprint('cliente', __name__, url_prefix="/cliente", template_folder='templates')
 
-#@bp_cliente.route("/", methods=['GET', 'POST'])
-#def formListaClientes():
-#   return render_template("formListaClientes.html")
-
-#@bp_cliente.route("/formCliente", methods=['POST'])
-#def formCliente():
-#    return render_template("formCliente.html")
-
+# FormListaClientes 
 @bp_cliente.route("/", methods=['GET', 'POST'])
-@validaSessao
+#@validaSessao
 def formListaClientes():
     cliente = Clientes()
     res = cliente.selectALL()
     return render_template('formListaClientes.html', result=res, content_type='application/json')
 
-@bp_cliente.route("/formCliente", methods=['POST'])
-@validaSessao
-def formCliente():
+# FormCadastroCliente
+@bp_cliente.route("/formCadastroCliente", methods=['POST'])
+#@validaSessao
+def formCadastroCliente():
     cliente=Clientes()
-    return render_template('formCliente.html', cliente=cliente, content_type='application/json')
+    return render_template('formCadastroCliente.html', cliente=cliente, content_type='application/json')
+
+#-----------------------------------------------------------------------------------------------------------------------
 
 @bp_cliente.route("/formEditCliente", methods=['POST'])
 @validaSessao

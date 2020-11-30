@@ -1,18 +1,18 @@
-{% extends 'modelo.html' %}
+{% extends "modelo.html" %}
 
-{% block title %}Lista de Clientes{% endblock %}
+{% block title %}Lista de Comandas{% endblock %}
 
 {% block style %}{% endblock %}
 
-  
 {% block content %}
-    <div class="Container">
-      <div class="col-12">             
+<div class="Container">
+    <div class="col-12">             
         <br>
-        <h1>Histórico de Clientes</h1>
+        <h1>Lista de Comandas:</h1>
         <br>
-        <form action="{{ url_for('cliente.formCadastroCliente') }}" method="POST">
-          <button type="submit" src="" class="btn btn-danger">Novo Cliente</button>
+        <hr>
+        <form action="{{ url_for('comanda.formAbrirComanda') }}" method="POST">
+          <button type="submit" src="" class="btn btn-danger">Abrir Comanda</button>
         </form>
         <br>
         <table class="table table-md table-houver table-responsive">
@@ -20,11 +20,18 @@
             <tr>
               <th>#</th>
               <th>Nome</th>
-              <th>CPF</th>
-              <th>Data de Pagamento</th>
+              <th>Endereço</th>
+              <th>Número</th>
+              <th>Observação</th>
+              <th>CEP</th>
+              <th>Bairro</th>
+              <th>Cidade</th>
+              <th>Estado</th>
               <th>Telefone</th>
-              <th>Senha</th>
-              <th>Fiador</th>
+              <th>Email</th>
+              <th>Login</th>
+              <th>Senha</th>  
+              <th>Grupo</th>
             </tr>
           </thead>
           <tbody>
@@ -38,16 +45,17 @@
               <td> {{ row[4] }}</td>
               <td> {{ row[5] }}</td>
               <td> {{ row[6] }}</td>
+              <td> {{ row[7] }}</td>
+              <td> {{ row[8] }}</td>
+              <td> {{ row[9] }}</td>
+              <td> {{ row[10] }}</td>
+              <td> {{ row[11] }}</td>
+              <td> {{ row[12] }}</td>
+              <td> {{ row[13] }}</td>
               <td>
                 <form action="" method='POST' name='editUsuario'>
                   <input type='hidden' name='id_cliente' value=''>
                   <button type='submit' class="btn btn-primary" name='formEditCliente'><i class='fas fa-edit'></i></button>
-                </form>
-              </td>
-              <td>
-                <form method='POST' name='deleteProduto' id='deleteProduto'>
-                  <input type='hidden' name='id_produto' value=''>
-                  <button type='submit' class="btn btn-primary" name='formDeleteProduto'><i class='fas fa-trash'></i></button>
                 </form>
               </td>
             </tr>
@@ -55,8 +63,8 @@
           {% endif %}
           </tbody>
         </table>
-      </div>
     </div>
+</div>        
 {% endblock %}
             
 {% block footer %}{% endblock %}

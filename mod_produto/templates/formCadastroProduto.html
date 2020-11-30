@@ -1,0 +1,197 @@
+{% extends 'modelo.html' %}
+
+{% block title %}Cadastro de Produto{% endblock %}
+
+{% block style %}{% endblock %}
+
+
+{% block content %}
+  
+
+    <h1>Cadastrar novo produto:</h1>
+    <form id="" name="" method="POST" enctype="multipart/form-data">
+      
+     <!-- 
+    <h1>Editar Produto: </h1>
+    <form id="editProduto" name="editProduto" method="POST" enctype="multipart/form-data">
+      -->
+  
+  <div class="col-10">
+    <br>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="id_produto">ID:</label>
+          <input readonly value="" class="form-control" type="text" name="id_produto" id="id_produto">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="nomeProduto">Nome do Produto:</label>
+          <input value="" class="form-control" type="text" name="nomeProduto" id="nomeProduto" autofocus maxlength="100">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="valorUnitario">Valor Unitário:</label>
+          <input value="" class="form-control" type="text" name="valorUnitario" id="valorUnitario" maxlength="11">
+        </div>
+      </div>
+      <div class="form-row">
+        
+      </div>
+      <div class="form-group">
+        <label for="valor">Descrição:</label>
+        <textarea value="" class="form-control" type="textarea" name="valor" id="valor" maxlength="200"></textarea>
+        
+      </div>
+      <label for="imagem">Imagem:</label>
+      <div class="form-group">                
+        <input class="form-control" type="file" name="imagem" accept="image/*" id="imagem">
+        <img src='' width='150'>           
+        <!--<label class="custom-file-label" for="customFile">Escolha uma Imagem</label>-->
+      </div>
+     <br>
+    <br>
+    <button type='submit' class="btn btn-primary" name='salvaProdutoDB' id='salvaProdutoDB'>Salvar</button>
+    <button type='submit' class="btn btn-primary" name='editaProdutoDB' id='editaProdutoDB'>Editar</button>
+  </div>     
+</form>
+{% endblock %}
+
+{% block js %}
+  <script>
+    
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; // pega a url da barra de endereço
+  
+    $('#addProduto').submit(function (e) {
+      e.preventDefault(); // parar o envio para poder fazer manualmente
+      var form = $('#addProduto')[0]; // captura o form
+      var data = new FormData(form); // cria o FormData {Object}
+  
+      $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "",
+        data: data,
+        processData:false,contentType:false,cache:false,timeout: 600000,
+      
+        // manipular o retorno da requisição
+        success: function (data) {
+          if (!data.erro) {
+            swal({
+              title:"Aviso",
+              text:data.mensagem = "Adicionado com sucesso!",
+              type:"success",
+              confirmButtonClass:"btn-success",
+              confirmButtonText:"Ok",
+              closeOnConfirm:false,
+              closeOnCancel:false
+            },
+              function (isConfirm) {
+                if (isConfirm) {
+                  window.location.replace($SCRIPT_ROOT + "");
+                }
+              });
+          }
+          else {
+            swal("", data.mensagem + '\n' + data.mensagem_exception, "error");
+          }
+        },
+        error: function (e) {
+          console.log(e);
+        }
+      })
+    })
+  
+    $('#editProduto').submit(function (e) {
+      e.preventDefault(); // parar o envio para poder fazer manualmente
+      var form = $('#editProduto')[0]; // captura o form
+      var data = new FormData(form); // cria o FormData {Object}
+      
+      $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "",
+        data: data,
+        processData: false, // impedir que o jQuery tranforma a "data" em querystring
+        contentType: false, // desabilitar o cabeçalho "Content-Type"
+        cache: false, // desabilitar o "cache"
+        timeout: 600000, // definir um tempo limite (opcional)
+        
+        // manipular o retorno da requisição
+        success: function (data) {
+          if (!data.erro) {
+            swal({
+              title: "Aviso",
+              text: data.mensagem = "Editado com Sucesso!",
+              type: "success",
+              confirmButtonClass: "btn-success",
+              confirmButtonText: "Ok",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },
+              function (isConfirm) {
+                if (isConfirm) {
+                  window.location.replace($SCRIPT_ROOT + "");
+                }
+              });
+          }   
+          else {
+            swal("", data.mensagem + '\n' + data.mensagem_exception, "error");
+            console.log(data.mensagem_exception);
+          }
+        },
+        
+        error: function (e) {
+          console.log(e);
+        }
+      })
+    })
+
+    //Tempo de Sessão
+    var tempo = new Number();
+  // Tempo em segundos
+  tempo = 900;
+
+  function startCountdown(){
+
+    // Se o tempo não for zerado
+    if((tempo - 1) >= 0){
+
+      // Pega a parte inteira dos minutos
+      var min = parseInt(tempo/60);
+      // Calcula os segundos restantes
+      var seg = tempo%60;
+
+      // Formata o número menor que dez, ex: 08, 07, ...
+      if(min < 10){
+        min = "0"+min;
+        min = min.substr(0, 2);
+      }
+      if(seg <=9){
+        seg = "0"+seg;
+      }
+
+      // Cria a variável para formatar no estilo hora/cronômetro
+      horaImprimivel = '00:' + min + ':' + seg;
+      //JQuery pra setar o valor
+      $("#sessao").html(horaImprimivel);
+
+      // Define que a função será executada novamente em 1000ms = 1 segundo
+      setTimeout('startCountdown()',1000);
+
+      // diminui o tempo
+      tempo--;
+
+      // Quando o contador chegar a zero faz esta ação
+    } else {
+      window.open('http://127.0.0.1:5000/', '_self');
+    }
+
+  }
+
+  // Chama a função ao carregar a tela
+  startCountdown();
+
+  $(document).ready(function(){
+	  $("#valor").mask('#.##0.00', {reverse: true});
+    }); 
+  </script>
+  <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>       
+  {% endblock %}

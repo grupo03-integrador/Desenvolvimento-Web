@@ -13,7 +13,7 @@ def validaLogin():
     _name = request.form['usuario']
     _pass = request.form['senha']
 
-    if _name == "abc" and _pass == "bolinhas":
+    if _name == "grupo03" and _pass == "abcbolinhas":
         # abre a aplicação na tela home
         session.clear()
         session['usuario'] = _name

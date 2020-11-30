@@ -15,7 +15,7 @@
     <nav class="navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">
         <!-- <img src="" width="30" height="30" alt="" loading="lazy"> -->
-        <h2>Seja Bem Vindo</h2>
+        <h2>Pastelaria do Zé</h2>
       </a>
     </nav>
     {% block content %}
@@ -24,23 +24,22 @@
           <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
               <div class="card-body">
-                <h1 class="card-title text-center" >Pastelaria do Zé</h1>
+                <h1 class="card-title text-center" >Seja Bem Vindo</h1>
                 <h5 class="card-title text-center">Login</h5>
                 <form class="form-signin"  action="{{ url_for('login.validaLogin') }}" method="POST">
                   <div class="form-label-group">
-                    <input type="text" id="inputUser" class="form-control" placeholder="" name="usuario" value="abc" required autofocus>
+                    <input type="text" id="inputUser" class="form-control" placeholder="" name="usuario" value="grupo03" required autofocus>
                   </div>
                   <br>
                   <div class="form-label-group">
-                    <input type="password" id="inputPassword" class="form-control" placeholder=""  name="senha" value="bolinhas" required>
+                    <input type="password" id="inputPassword" class="form-control" placeholder=""  name="senha" value="abcbolinhas" required>
                   </div>
                   <br>
-                  <div class="custom-control custom-checkbox mb-3">
+                  <!--<div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" id="customCheck1">
                     <label class="custom-control-label" for="customCheck1">Remember password</label>
-                  </div>
+                  </div>-->
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-                  <hr class="my-4">
                 </form>
               </div>
             </div>
@@ -58,10 +57,9 @@
     {% endblock %}
 
     {% block footer %}
-      <footer>
-        <div class="col-8">&copy; Copyright 2020 by <a href="http://127.0.0.1:5000/">Eduardo Ortiz</a>.</div>
-      </footer>  
-    {% endblock %}
+      <br><br><br><br><br><br>
+      <div class="col-8">&copy; Copyright 2020 by Grupo 03.</div>
+      {% endblock %}
     <script src="{{ url_for('static', filename='bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
   </body>
 </html>

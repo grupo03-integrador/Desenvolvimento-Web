@@ -1,0 +1,52 @@
+{% extends 'modelo.html' %}
+
+{% block title %}Lista de Produtos{% endblock %}
+
+{% block style %}{% endblock %}
+
+    {% block content %}
+    
+        <div class="col-12">
+            <br>
+            <h1>Lista  de Produtos:</h1>
+            <br> 
+            <form>
+                <table class="table table-md table-houver table-responsive">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Código do Produto</th>
+                      <th scope="col">Descrição</th>
+                      <th scope="col">Preço</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if result %}
+                    {% for row in result %}
+                    <tr>
+                      <th scope='row'>{{ row[0] }}</th>
+                      <td>{{ row[1] }}</td>
+                      <td>{{ row[2] }}</td>
+                      <td>
+                        <form action= '' method='POST' name='addPedidoProduto'>
+                          <input type='hidden' name='id_produto' value=''>
+                          <button type='submit' class="btn btn-primary" name='formPedido'><i class="fas fa-plus "></i></button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                  </tbody>
+                </table>
+                </form>
+          </div>
+    {% endblock %}
+      <br>
+      <br>
+        
+    {% block footer %}
+    <footer>
+      <div class="col-8">
+        &copy; Copyright 2020 by <a href="http://127.0.0.1:5000/">Eduardo Ortiz</a>.
+      </div>
+    </footer>
+    {% endblock %}

@@ -1,30 +1,33 @@
-{% extends 'modelo.html' %}
+{% extends "modelo.html" %}
 
-{% block title %}Lista de Clientes{% endblock %}
+{% block title %}Lista de Funcionários{% endblock %}
 
 {% block style %}{% endblock %}
 
   
 {% block content %}
-    <div class="Container">
-      <div class="col-12">             
+<div class="Container">
+    <div class="col-12">             
         <br>
-        <h1>Histórico de Clientes</h1>
+        <h1>Lista de Funcionários:</h1>
         <br>
-        <form action="{{ url_for('cliente.formCadastroCliente') }}" method="POST">
-          <button type="submit" src="" class="btn btn-danger">Novo Cliente</button>
+        <hr>
+        <form action="{{ url_for('funcionario.formCadastroFuncionario') }}" method="POST">
+          <button type="submit" src="" class="btn btn-danger">Novo Funcionário</button>
         </form>
         <br>
         <table class="table table-md table-houver table-responsive">
           <thead class="thead-light" >
             <tr>
               <th>#</th>
+              <th>Matricula</th>
+              <th>Grupo</th>
               <th>Nome</th>
-              <th>CPF</th>
-              <th>Data de Pagamento</th>
+              <th>CEP</th>
               <th>Telefone</th>
               <th>Senha</th>
               <th>Fiador</th>
+              <th>Data de Pagamento</th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +41,8 @@
               <td> {{ row[4] }}</td>
               <td> {{ row[5] }}</td>
               <td> {{ row[6] }}</td>
+              <td> {{ row[7] }}</td>
+              <td> {{ row[8] }}</td>
               <td>
                 <form action="" method='POST' name='editUsuario'>
                   <input type='hidden' name='id_cliente' value=''>
@@ -55,8 +60,8 @@
           {% endif %}
           </tbody>
         </table>
-      </div>
     </div>
+</div>        
 {% endblock %}
             
 {% block footer %}{% endblock %}
