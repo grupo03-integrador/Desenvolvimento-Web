@@ -99,10 +99,10 @@
       <br>
       <h1>Lista de Produtos:</h1>
       <br>
-      <form action="{{ url_for('produto.formCadastroProduto') }}" method="POST">
-        <button class="btn btn-danger" type="submit">Novo Produto</button>
-      </form>  
-      <br>
+          <form action="{{ url_for('produto.formProduto') }}" method='POST' name='editProduto'>
+            <button class="btn btn-outline-danger" type='submit' name='formNovoProduto'><i class='fas fa-plus-circle'></i>Novo Produto</button>
+          </form>
+      <br>  
       <table class="table table-md table-houver table-responsive">
         <thead class="thead-light"> 
           <tr>
@@ -123,16 +123,12 @@
                 <td> {{ row[3] }}</td>
                 <td><img src='{{ row[4] }}' width='50' id="myImg"></td>
                 <td>
-                  <form action= '' method='POST' name='editProduto'>
-                    <input type='hidden' name='id_produto' value=''>
-                    <button type='submit' class="btn btn-primary" name='formEditProduto'><i class="fas fa-edit"></i></button>
+                  <form action='{{ url_for('produto.formEditProduto') }}' method='POST' name='editProduto'>
+                      <input type='hidden' name='id_produto' value='{{ row[0] }}'>
+                      <button type='submit' name='formEditProduto'><i class='fas fa-edit'></i></button>
                   </form>
                 </td>
-                <td>
-                  <form method='POST' name='deleteProduto' id='deleteProduto'>
-                    <input type='hidden' name='id_produto' value=''>
-                    <button type='submit' class="btn btn-primary" name='formDeleteProduto'><i class='fas fa-trash'></i></button>
-                  </form>
+                <td>                  
                 </td>
                 <div id="myModal" class="modal">
                   <span class="close">&times;</span>

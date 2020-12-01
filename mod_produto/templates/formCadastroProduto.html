@@ -4,13 +4,19 @@
 
 {% block style %}{% endblock %}
 
-
 {% block content %}
-  
+
+{% if produto.id_produto == 0 %}    
+    <form name="produto" method="POST" action="{{ url_for('produto.addProduto') }}">
+{% else %}
+    <h1>Editar Produto: {{ produto.id_produto }}</h1>
+    <form name="produto" method="POST" action="{{ url_for('produto.editProduto') }}">
+{% endif %}
+
 
     <h1>Cadastrar novo produto:</h1>
     <form id="" name="" method="POST" enctype="multipart/form-data">
-      
+     
      <!-- 
     <h1>Editar Produto: </h1>
     <form id="editProduto" name="editProduto" method="POST" enctype="multipart/form-data">
@@ -21,25 +27,24 @@
       <div class="form-row">
         <div class="form-group col-md-2">
           <label for="id_produto">ID:</label>
-          <input readonly value="" class="form-control" type="text" name="id_produto" id="id_produto">
+          <input readonly value="{{produto.id_produto}}" class="form-control" type="text" name="id_produto" id="id_produto">
         </div>
         <div class="form-group col-md-6">
-          <label for="nomeProduto">Nome do Produto:</label>
-          <input value="" class="form-control" type="text" name="nomeProduto" id="nomeProduto" autofocus maxlength="100">
+          <label for="nome">Nome do Produto:</label>
+          <input value="{{produto.nome}}" class="form-control" type="text" name="nome" id="nome" autofocus maxlength="100">
         </div>
         <div class="form-group col-md-4">
-          <label for="valorUnitario">Valor Unitário:</label>
-          <input value="" class="form-control" type="text" name="valorUnitario" id="valorUnitario" maxlength="11">
+          <label for="valor_unitario">Valor Unitário:</label>
+          <input value="{{produto.valor_unitario}}" class="form-control" type="text" name="valor_unitario" id="valor_unitario" maxlength="11">
         </div>
       </div>
       <div class="form-row">
         
       </div>
-      <div class="form-group">
-        <label for="valor">Descrição:</label>
-        <textarea value="" class="form-control" type="textarea" name="valor" id="valor" maxlength="200"></textarea>
-        
-      </div>
+      <div class="col">
+         <label for="descricao">Descrição </label>
+          <input value="{{ produto.descricao }}" type="text" class="form-control" name="descricao" id="descricao"  required onfocus="this.style.backgroundColor='#FFFBDD'" onblur="this.style.backgroundColor=''">
+      </div>       
       <label for="imagem">Imagem:</label>
       <div class="form-group">                
         <input class="form-control" type="file" name="imagem" accept="image/*" id="imagem">
@@ -48,8 +53,19 @@
       </div>
      <br>
     <br>
-    <button type='submit' class="btn btn-primary" name='salvaProdutoDB' id='salvaProdutoDB'>Salvar</button>
-    <button type='submit' class="btn btn-primary" name='editaProdutoDB' id='editaProdutoDB'>Editar</button>
+    {% if produto.id_produto == 0 %}
+      <div class="col">
+          <button type='submit' name='salvaInsereProdutoDB' id='salvaInsereProdutoDB' class="btn btn-outline-success"><i class="fas fa-save"></i>Salvar</button>             
+        </div>
+
+    {% else %}                                    
+      <div class="col"> 
+          <div class="form-group">
+              <button type='submit' name='salvaEditaProdutoDB' id='salvaEditaProdutoDB' class="btn btn-outline-success"><i class="fas fa-save"></i>Salvar</button>
+              <button type='submit' name='salvaExcluiProdutoDB' id='salvaExcluiProdutoDB'class="btn btn-outline-danger"><i class="far fa-trash-alt"></i>Excluir</button>
+          </div>                      
+      </div> 
+    {% endif %}
   </div>     
 </form>
 {% endblock %}

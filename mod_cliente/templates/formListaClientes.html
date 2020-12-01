@@ -11,10 +11,10 @@
         <br>
         <h1>Histórico de Clientes</h1>
         <br>
-        <form action="{{ url_for('cliente.formCadastroCliente') }}" method="POST">
-          <button type="submit" src="" class="btn btn-danger">Novo Cliente</button>
-        </form>
-        <br>
+          <form action="{{ url_for('cliente.formCliente') }}" method='POST' name='editUsuario'>
+              <button class="btn btn-outline-danger" type='submit' name='formNovoCliente'><i class='fas fa-plus-circle'></i>Novo Cliente</button>
+          </form>
+        <br>   
         <table class="table table-md table-houver table-responsive">
           <thead class="thead-light" >
             <tr>
@@ -39,9 +39,9 @@
               <td> {{ row[5] }}</td>
               <td> {{ row[6] }}</td>
               <td>
-                <form action="" method='POST' name='editUsuario'>
-                  <input type='hidden' name='id_cliente' value=''>
-                  <button type='submit' class="btn btn-primary" name='formEditCliente'><i class='fas fa-edit'></i></button>
+                <form action='{{ url_for('cliente.formEditCliente') }}' method='POST' name='editUsuario'>
+                    <input type='hidden' name='id_cliente' value='{{ row[0] }}'>
+                    <button type='submit' name='formEditCliente'><i class='fas fa-edit'></i></button>
                 </form>
               </td>
               <td>

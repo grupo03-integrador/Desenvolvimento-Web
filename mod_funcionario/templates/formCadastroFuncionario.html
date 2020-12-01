@@ -5,7 +5,12 @@
 {% block style %}{% endblock %}
   
 {% block content %}
-   
+{% if funcionario.id_funcionario == 0 %}    
+<form name="funcionario" method="POST" action="{{ url_for('funcionario.addFuncionario') }}">
+{% else %}
+<h1>Editar funcionario: {{ funcionario.id_funcionario }}</h1>
+<form name="funcionario" method="POST" action="{{ url_for('funcionario.editFuncionario') }}">
+{% endif %}  
     <div class="col-10">
         <br>
         <h1>Cadastro de Funcionário:</h1>
@@ -24,26 +29,26 @@
 
         <div class="form-row">
           <div class="form-group col-md-2">
-            <label for="id_cliente">ID:</label>
-            <input readonly value="" class="form-control" type="text" name="id_cliente" id="id_cliente">
+            <label for="id_funcionario">ID:</label>
+            <input readonly value="{{ funcionario.id_funcionario }}" class="form-control" type="text" name="id_funcionario" id="id_funcionario">
           </div>
           <div class="form-group col-md-7">
             <label for="nome">Nome:</label>
-            <input value="" class="form-control" type="text" name="nome" id="nome" maxlength="100" autofocus required>
+            <input value="{{ funcionario.nome }}" class="form-control" type="text" name="nome" id="nome" maxlength="100" autofocus required>
           </div>
           <div class="form-group col-md-3">
             <label for="matricula">Matricula:</label>
-            <input value="" class="form-control" type="text" name="matricula" id="matricula" maxlength="10" required>
+            <input value="{{ funcionario.matricula }}" class="form-control" type="text" name="matricula" id="matricula" maxlength="10" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-5">
             <label for="cpf">CPF:</label>
-            <input value="" class="form-control" type="text" name="cpf" id="cpf" maxlength="11" required>
+            <input value="{{ funcionario.cpf }}" class="form-control" type="text" name="cpf" id="cpf" maxlength="11" required>
           </div>
           <div class="form-group col-md-5">
             <label for="telefone">Telefone:</label>
-            <input value="" class="form-control" type="text" name="telefone" id="telefone" maxlength="11" required>
+            <input value="{{ funcionario.telefone }}" class="form-control" type="text" name="telefone" id="telefone" maxlength="11" required>
           </div>
           <div class="form-group col-md-2">
             <label for="grupo">Grupo:</label>
@@ -57,11 +62,11 @@
         <div class="form-row">
           <div class="form-group col-md-5">
             <label for="senha">Senha:</label>
-            <input value="" class="form-control" type="text" name="senha" id="senha" maxlength="200" required>
+            <input value="{{ funcionario.senha }}" class="form-control" type="text" name="senha" id="senha" maxlength="200" required>
           </div>
           <div class="form-group col-md-4">
-            <label for="bairro">Confirmar senha:</label>
-            <input value="" class="form-control" type="text" name="bairro" id="bairro" maxlength="80" required>
+            <label for="senha">Confirmar senha:</label>
+            <input value="{{ funcionario.senha }}" class="form-control" type="text" name="senha" id="senha" maxlength="80" required>
           </div>
           <div class="form-group col-md-12">
             <!-- Button trigger modal -->
@@ -81,15 +86,15 @@
                   <div class="modal-body">
                     <div class="form-group col-md-10">
                       <label for="senhaAtual">Senha Atual:</label>
-                      <input value="" class="form-control" type="text" name="senhaAtual" id="senhaAtual" maxlength="200" autofocus required>
+                      <input value="{{ funcionario.senha }}" class="form-control" type="text" name="senhaAtual" id="senhaAtual" maxlength="200" autofocus required>
                     </div>
                     <div class="form-group col-md-10">
                       <label for="novaSenha">Nova senha:</label>
-                      <input value="" class="form-control" type="text" name="novaSenha" id="novaSenha" maxlength="200" required>
+                      <input value="{{ funcionario.senha }}" class="form-control" type="text" name="novaSenha" id="novaSenha" maxlength="200" required>
                     </div>
                     <div class="form-group col-md-10">
                       <label for="confirmarSenha">Confirmar senha:</label>
-                      <input value="" class="form-control" type="text" name="confirmarSenha" id="confirmarSenha" maxlength="200" required>
+                      <input value="{{ funcionario.senha }}" class="form-control" type="text" name="confirmarSenha" id="confirmarSenha" maxlength="200" required>
                     </div>
                     <div class="form-group col-md-10">
                       <button type="button" class="btn btn-primary">Salvar</button>    
@@ -106,23 +111,33 @@
             <div class="card-body">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="fiador">Fiador:</label>
-                  <select value="" class="form-control" type="text" name="fiado" id="fiado" required>
-                    <option value="" name="sim" id="admin">Não</option>
-                    <option value="" name="nao" id="balcao">Sim</option>
+                  <label for="fiador">compra_fiado:</label>
+                  <select value="compra_fiado" class="form-control" type="text" name="compra_fiado" id="compra_fiado" required>
+                    <option value="{{ funcionario.compra_fiado }}" name="sim" id="admin">Não</option>
+                    <option value="{{ funcionario.compra_fiado }}" name="nao" id="balcao">Sim</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="email">Data de Pagamento:</label>
-                  <input value="" class="form-control" type="date" name="dataPagamento" id="dataPagamento">
+                  <input value="{{ funcionario.data_pagamento }}" class="form-control" type="date" name="dataPagamento" id="dataPagamento">
                 </div>
               </div>
             </div>
           </div>  
         </div>
         <br><br><br>
-        <button type='submit' class="btn btn-primary" name='salvaInsereUsuarioDB' id='salvaInsereUsuarioDB'>Salvar</button>
-        <button type='submit' class="btn btn-primary" name='salvaEditaUsuarioDB' id='salvaEditaUsuarioDB'>Editar</button>
+        {% if funcionario.id_funcionario == 0 %}
+          <div class="col">
+               <button type='submit' name='salvaInserefuncionarioDB' id='salvaInserefuncionarioDB' class="btn btn-outline-success"><i class="fas fa-save"></i>Salvar</button>             
+           </div>
+        {% else %}                                    
+          <div class="col"> 
+            <div class="form-group">
+              <button type='submit' name='salvaEditafuncionarioDB' id='salvaEditafuncionarioDB' class="btn btn-outline-success"><i class="fas fa-save"></i>Salvar</button>
+                 <button type='submit' name='salvaExcluifuncionarioDB' id='salvaExcluifuncionarioDB'class="btn btn-outline-danger"><i class="far fa-trash-alt"></i>Excluir</button>
+            </div>                      
+          </div> 
+        {% endif %}
       </form>
       <br>
       <br>
@@ -148,11 +163,11 @@
             }
             else if (data.login_existe) {
               $('#login').addClass('is-invalid').removeClass('is-valid');
-              $("button[name='salvaUsuarioDB']").attr('disabled', true);
+              $("button[name='salvaFuncionarioDB']").attr('disabled', true);
             }
             else {
               $('#login').addClass('is-valid').removeClass('is-invalid');
-              $("button[name='salvaUsuarioDB']").attr('disabled', false)
+              $("button[name='salvaFuncionarioDB']").attr('disabled', false)
             }
           })
         }
