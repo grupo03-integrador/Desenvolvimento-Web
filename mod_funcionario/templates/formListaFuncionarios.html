@@ -12,9 +12,11 @@
         <h1>Lista de Funcionários:</h1>
         <br>
         <hr>
-        <form action="{{ url_for('funcionario.formCadastroFuncionario') }}" method="POST">
-          <button type="submit" src="" class="btn btn-danger">Novo Funcionário</button>
-        </form>
+        <br>
+          <form action="{{ url_for('funcionario.formEditFuncionario') }}" method='POST' name='editFuncionario'>
+              <button class="btn btn-outline-danger" type='submit' name='formCadastroFuncionario'><i class='fas fa-plus-circle'></i>Novo Funcionario</button>
+          </form>
+        <br>  
         <br>
         <table class="table table-md table-houver table-responsive">
           <thead class="thead-light" >
@@ -44,15 +46,15 @@
               <td> {{ row[7] }}</td>
               <td> {{ row[8] }}</td>
               <td>
-                <form action="" method='POST' name='editUsuario'>
-                  <input type='hidden' name='id_cliente' value=''>
-                  <button type='submit' class="btn btn-primary" name='formEditCliente'><i class='fas fa-edit'></i></button>
-                </form>
+                <form action='{{ url_for('funcionario.formEditFuncionario') }}' method='POST' name='editFuncionario'>
+                  <input type='hidden' name='id_funcionario' value='{{ row[0] }}'>
+                  <button type='submit' name='formEditFuncionario'><i class='fas fa-edit'></i></button>
+               </form>
               </td>
               <td>
-                <form method='POST' name='deleteProduto' id='deleteProduto'>
-                  <input type='hidden' name='id_produto' value=''>
-                  <button type='submit' class="btn btn-primary" name='formDeleteProduto'><i class='fas fa-trash'></i></button>
+                <form method='POST' name='deleteFuncionario' id='deleteFuncionario'>
+                  <input type='hidden' name='id_funcionario' value=''>
+                  <button type='submit' class="btn btn-primary" name='formDeleteFuncionario'><i class='fas fa-trash'></i></button>
                 </form>
               </td>
             </tr>
