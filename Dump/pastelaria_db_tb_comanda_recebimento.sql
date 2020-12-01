@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pastelaria_db
 -- ------------------------------------------------------
--- Server version	8.0.22
+-- Server version	5.7.29-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `tb_comanda_recebimento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_comanda_recebimento` (
-  `id_comanda_recebimento` int NOT NULL AUTO_INCREMENT,
-  `recebimento_id` int NOT NULL,
-  `comanda_id` int NOT NULL,
+  `id_comanda_recebimento` int(11) NOT NULL AUTO_INCREMENT,
+  `recebimento_id` int(11) NOT NULL,
+  `comanda_id` int(11) NOT NULL,
   PRIMARY KEY (`id_comanda_recebimento`),
   UNIQUE KEY `recebimento_id` (`recebimento_id`),
   UNIQUE KEY `comanda_id` (`comanda_id`),
   CONSTRAINT `FK_tb_comanda__tb_comanda_recebimento` FOREIGN KEY (`comanda_id`) REFERENCES `tb_comanda` (`id_comanda`),
   CONSTRAINT `FK_tb_recebimento__tb_comanda_recebimento` FOREIGN KEY (`recebimento_id`) REFERENCES `tb_recebimento` (`id_recebimento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-29 23:01:06
+-- Dump completed on 2020-11-30 23:10:11
