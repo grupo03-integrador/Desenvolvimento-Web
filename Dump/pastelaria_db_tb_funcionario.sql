@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pastelaria_db
 -- ------------------------------------------------------
--- Server version	8.0.22
+-- Server version	5.7.29-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,18 +23,18 @@ DROP TABLE IF EXISTS `tb_funcionario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_funcionario` (
-  `id_funcionario` int NOT NULL AUTO_INCREMENT,
+  `id_funcionario` int(11) NOT NULL AUTO_INCREMENT,
   `matricula` char(10) NOT NULL,
-  `grupo` tinyint DEFAULT NULL,
+  `grupo` tinyint(4) DEFAULT NULL,
   `nome` varchar(100) NOT NULL,
   `cpf` varchar(11) NOT NULL,
   `telefone` char(11) NOT NULL,
   `senha` varchar(200) NOT NULL,
-  `compra_fiado` tinyint DEFAULT NULL,
+  `compra_fiado` tinyint(4) DEFAULT NULL,
   `data_pagamento` date DEFAULT NULL,
   PRIMARY KEY (`id_funcionario`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-29 23:01:06
+-- Dump completed on 2020-11-30 23:10:12
